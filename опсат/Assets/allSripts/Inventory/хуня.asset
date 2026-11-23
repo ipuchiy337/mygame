@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4d48a10b220474c954fb3ced630298, type: 3}
+  m_Name: "\u0445\u0443\u043D\u044F"
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  itemName: "\u0430\u0430\u0430"
+  icon: {fileID: 21300000, guid: 9b0b29bb265e3e04eb0cff191bca5cbe, type: 3}
+  maxStackSize: 3
+  cost: 10
+  handItemObject: {fileID: 7118905742079377564, guid: 359b1f56a7bbf5f41ae33fefed452d21, type: 3}
+  pickupPrefab: {fileID: 1900488754005967334, guid: d381806ba325cee4291b35ea9b3c73ed, type: 3}

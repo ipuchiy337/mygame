@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &224891141087089795
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -46.199757
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.437541
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.86342
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.74223715
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.40254685
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.22194053
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.48762938
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -54.491
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 6.239
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -69.823
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      propertyPath: m_Name
+      value: vine_3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5157832608625738124}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4159455051544537038}
+  m_SourcePrefab: {fileID: 100100000, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+--- !u!1 &1143791833381202386 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3707a88562a751e42bd76ae6c3745349, type: 3}
+  m_PrefabInstance: {fileID: 224891141087089795}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &5157832608625738124
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143791833381202386}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.008907393, y: 0.012812219, z: 0.01625239}
+  m_Center: {x: -0.00024352802, y: 0.000014968083, z: -0.0035732756}
+--- !u!114 &4159455051544537038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143791833381202386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aad5900e80294a34ba22ce0f8bb7b2ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BushEffect
+  slowMultiplier: 0.9
+  swayAmount: 10
+  swaySpeed: 15
+  swayDuration: 1.2

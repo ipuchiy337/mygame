@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4d48a10b220474c954fb3ced630298, type: 3}
+  m_Name: boxItem
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  itemName: box
+  icon: {fileID: 21300000, guid: 3b91f049012a08d4e9d2f0fccde5b3b5, type: 3}
+  maxStackSize: 10
+  cost: 3
+  handItemObject: {fileID: 5123421287936195611, guid: 19e0c8102b8a05b4cb3df29b5221e95b, type: 3}
+  pickupPrefab: {fileID: 8741794404665480768, guid: 0e37f48db43bc924985f360c93dfe121, type: 3}
+  pickUpSound: {fileID: 8300000, guid: 78bfbfac073ff674e8811a5f06a98688, type: 3}
+  dropSound: {fileID: 8300000, guid: 0ee5c18f4067a2f4fa7d77949fd804a9, type: 3}

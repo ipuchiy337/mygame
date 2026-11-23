@@ -1,0 +1,779 @@
+fileFormatVersion: 2
+guid: b517ad326ddde9f45827568fcc4cbbdb
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_0
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 417
+        width: 60
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a456f56e36999f4ca7498b377c23a05
+      internalID: -1602634801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_1
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 417
+        width: 114
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 873736597c054684195c2c2480e18106
+      internalID: 1903063890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_2
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 422
+        width: 135
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25aca3c058a2ce0449b512990497462a
+      internalID: 1437309259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_3
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 427
+        width: 113
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07d2cf0353b466b44a8e13554e7ceffa
+      internalID: -313007675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_4
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 426
+        width: 49
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e1dc371567ce244aad731cf345593ad
+      internalID: -1732889261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 338
+        width: 117
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c553a825f5f1ca46ae512921a44e1cf
+      internalID: 57436925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_6
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 323
+        width: 99
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f82cb353a02e0564b8517f33dd2c5070
+      internalID: -1516332037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_7
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 338
+        width: 118
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f69b89a1b5620cf429af3b366cf63967
+      internalID: -1204115772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_8
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 343
+        width: 116
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd95ad8637daf56449e5f2ecb49cf286
+      internalID: 755121519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_9
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 338
+        width: 116
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d09b17b61e4e2034ba677245a554c3e6
+      internalID: -139291267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 251
+        width: 117
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc5fd3e380c769a44891214506b438dc
+      internalID: -1585103712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_11
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 263
+        width: 116
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63df3fd633804a342be5a6e63ee3edb5
+      internalID: -785389764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_12
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 247
+        width: 66
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b11a5d6ac7e77d442849d74b571c5153
+      internalID: 483785332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_13
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 258
+        width: 116
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f259ff12456a174e9db35d92ad4cf05
+      internalID: 1655368894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_14
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 263
+        width: 116
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f785a3a99659a04f882e23698382e5c
+      internalID: -1804264660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_15
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 161
+        width: 77
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f43961430c5a2264c952caacea33d833
+      internalID: 1872381713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_16
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 163
+        width: 58
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9260d80f66e2b5419cb908783fe4ea4
+      internalID: -1743444223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_17
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 165
+        width: 105
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61bed56159954f440aec83a4dd7a65bf
+      internalID: -1662131650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_18
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 163
+        width: 94
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e61a6aaacaa04644589a5ccb98af9e3c
+      internalID: -1353134846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_19
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 161
+        width: 57
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 417145c626a1a2740add23d18f96f4d3
+      internalID: 187751118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_20
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 79
+        width: 63
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fff9e072054c644e8c34b095da83b18
+      internalID: 902110991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_21
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 85
+        width: 116
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7e1acad83d831943b71962f3d1ce7bb
+      internalID: -1900749150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_22
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 83
+        width: 118
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5caae85cf33df341affc8c573257bac
+      internalID: 1853053017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_23
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 75
+        width: 95
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c60b84d07a95d34080255047c02f649
+      internalID: 305071874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_24
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 78
+        width: 55
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dabcae3eecd9c904589fd2a3f8c4657b
+      internalID: 532384457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_25
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 116
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05853c208752eaf4c9c91b4e8a63dcb0
+      internalID: -761580436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_26
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 0
+        width: 112
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1be9b09451937b4ab3600baeb7a2e60
+      internalID: 1949975108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9433b6054c67772489dbd5399330bb51
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_0: -1602634801
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_1: 1903063890
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_10: -1585103712
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_11: -785389764
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_12: 483785332
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_13: 1655368894
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_14: -1804264660
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_15: 1872381713
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_16: -1743444223
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_17: -1662131650
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_18: -1353134846
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_19: 187751118
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_2: 1437309259
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_20: 902110991
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_21: -1900749150
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_22: 1853053017
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_23: 305071874
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_24: 532384457
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_25: -761580436
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_26: 1949975108
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_3: -313007675
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_4: -1732889261
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_5: 57436925
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_6: -1516332037
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_7: -1204115772
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_8: 755121519
+      498-4983009_drawn-gun-pixel-art-gun-sprite-pixel-art_9: -139291267
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4d48a10b220474c954fb3ced630298, type: 3}
+  m_Name: pila
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  itemName: pila
+  icon: {fileID: 21300000, guid: 54682dd67466e51429b0d6e2e85a3eb1, type: 3}
+  maxStackSize: 2
+  cost: 67
+  handItemObject: {fileID: 5123421287936195611, guid: 19e0c8102b8a05b4cb3df29b5221e95b, type: 3}
+  pickupPrefab: {fileID: 2473959022031683903, guid: c5c449d84ca25cc44a9d3eab40ff609c, type: 3}
+  pickUpSound: {fileID: 8300000, guid: 0ba74eb27a183a1419cb75a94b9c1fe0, type: 3}
+  dropSound: {fileID: 8300000, guid: 9ab8943f562d1bf4b989c529ef770044, type: 3}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4d48a10b220474c954fb3ced630298, type: 3}
+  m_Name: pcItem
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  itemName: PC
+  icon: {fileID: 21300000, guid: 36abf0dd29343ac4fb3ac9fea6795c3c, type: 3}
+  maxStackSize: 1
+  cost: 120
+  handItemObject: {fileID: 5123421287936195611, guid: 19e0c8102b8a05b4cb3df29b5221e95b, type: 3}
+  pickupPrefab: {fileID: 727041537398912577, guid: 67c6c8bb306155e46835f983bf46f161, type: 3}
+  pickUpSound: {fileID: 8300000, guid: 6a68b78274f241a46a7accf8c90b4910, type: 3}
+  dropSound: {fileID: 8300000, guid: aea9d651e6087584d8804074699228ba, type: 3}

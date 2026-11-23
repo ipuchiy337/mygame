@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4d48a10b220474c954fb3ced630298, type: 3}
+  m_Name: spirt_item
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  itemName: spirt_item
+  icon: {fileID: 21300000, guid: 3d892f08740c9b64a97792a43b486b8d, type: 3}
+  maxStackSize: 5
+  cost: 14
+  handItemObject: {fileID: 5123421287936195611, guid: 19e0c8102b8a05b4cb3df29b5221e95b, type: 3}
+  pickupPrefab: {fileID: 1857286505065731492, guid: ec54f054e0f24d543a817ea034f73848, type: 3}
+  pickUpSound: {fileID: 8300000, guid: aea304516ebd1bf4b81bb2880541348c, type: 3}
+  dropSound: {fileID: 8300000, guid: 7e6f27ef7f1611b448869e6fb508a64a, type: 3}

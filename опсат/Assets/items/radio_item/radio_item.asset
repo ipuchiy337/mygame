@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4d48a10b220474c954fb3ced630298, type: 3}
+  m_Name: radio_item
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  itemName: radio
+  icon: {fileID: 21300000, guid: aa0fe72469690c94a91299a962e0c6e2, type: 3}
+  maxStackSize: 5
+  cost: 34
+  handItemObject: {fileID: 5123421287936195611, guid: 19e0c8102b8a05b4cb3df29b5221e95b, type: 3}
+  pickupPrefab: {fileID: 6977244667895126282, guid: 12c7b61011fa4e640bfc007d0a0ebb69, type: 3}
+  pickUpSound: {fileID: 8300000, guid: 72814d3cf623bb84c91c48cbb45c2d12, type: 3}
+  dropSound: {fileID: 8300000, guid: ddf5f5b658e9b3e46ad6bb69811ee3ab, type: 3}

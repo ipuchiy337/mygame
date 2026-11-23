@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4d48a10b220474c954fb3ced630298, type: 3}
+  m_Name: orangeJuiceItem
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  itemName: orangeJuice
+  icon: {fileID: 21300000, guid: ce3e17574f3e9d8409294a4fe34e3e99, type: 3}
+  maxStackSize: 10
+  cost: 8
+  handItemObject: {fileID: 5123421287936195611, guid: 19e0c8102b8a05b4cb3df29b5221e95b, type: 3}
+  pickupPrefab: {fileID: 8607751093425012775, guid: 161f1770a00e4f147a7b375aabec93fe, type: 3}
+  pickUpSound: {fileID: 8300000, guid: 4df2c58faee81f248be1532b8b4af0de, type: 3}
+  dropSound: {fileID: 8300000, guid: ed12394601c8940418b43c68bfd5e105, type: 3}
