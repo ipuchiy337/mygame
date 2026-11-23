@@ -68,6 +68,8 @@ public class ZombieFollow : MonoBehaviour
     [Min(1f)] public float farCheckMultiplier = 3f;
     [Tooltip("Склеить меши модели в один + LODGroup + отсечение анимации вне камеры.")]
     public bool optimizeModel = true;
+    [Tooltip("Дальше этого радиуса от игрока зомби рисуется простым кубом: модель скрыта, аниматор выключен.")]
+    public float impostorDistance = 40f;
 
     [Header("Склоны и ступеньки")]
     public float stepHeight = 0.4f;
@@ -159,6 +161,8 @@ public class ZombieFollow : MonoBehaviour
     private Vector3 lastSafePosition;
     private bool layerFilteringReady;
     private float lod = 1f;
+    private Renderer[] skins;
+    private bool impostor;
 
     private static PhysicsMaterial sharedNoFriction;
 
@@ -243,7 +247,27 @@ public class ZombieFollow : MonoBehaviour
     {
         // В Start, а не в Awake: Animator модели к этому моменту уже инициализирован.
         if (optimizeModel) ZombieLod.Apply(gameObject);
+        skins = GetComponentsInChildren<SkinnedMeshRenderer>(true);
+        if (anim != null) anim.keepAnimatorStateOnDisable = true; // вернулся из куба — продолжает ту же анимацию
     }
+
+    // Вызывается из ZombieHorde раз в кадр: true — зомби далеко и рисуется кубом.
+    internal bool UpdateImpostor()
+    {
+        if (skins == null || player == null) return false;
+        float r = impostor ? impostorDistance - 3f : impostorDistance; // запас 3 м, чтобы на границе не мигал
+        bool far = Flat(player.position - transform.position).sqrMagnitude > r * r;
+        if (far != impostor)
+        {
+            impostor = far;
+            if (anim != null) anim.enabled = !far;
+            foreach (var s in skins) if (s != null) s.forceRenderingOff = far;
+        }
+        return far;
+    }
+
+    internal Matrix4x4 ImpostorMatrix => Matrix4x4.TRS(col.bounds.center,
+        transform.rotation, new Vector3(radius * 2f, height, radius * 2f));
 
     private void OnEnable()
     {
@@ -657,7 +681,7 @@ public class ZombieFollow : MonoBehaviour
         rb.useGravity = true;
         rb.linearVelocity = new Vector3(dir.x * horizontalSpeed, verticalSpeed, dir.z * horizontalSpeed);
 
-        if (anim != null && !string.IsNullOrEmpty(jumpTrigger))
+        if (anim != null && anim.enabled && !string.IsNullOrEmpty(jumpTrigger))
             anim.SetTrigger(jumpTrigger);
     }
 
@@ -837,7 +861,7 @@ public class ZombieFollow : MonoBehaviour
         zhp.wasDamaged = false;
         stunUntil = Time.time + hitStunDuration;
         StopAttackAnimation();
-        if (anim != null) anim.SetTrigger(DamagedHash);
+        if (anim != null && anim.enabled) anim.SetTrigger(DamagedHash);
     }
 
     public void Knockback(Vector3 direction, float force)

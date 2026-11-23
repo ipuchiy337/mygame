@@ -19,11 +19,36 @@ public class ZombieHorde : MonoBehaviour
         if (instance == null) instance = new GameObject("ZombieHorde").AddComponent<ZombieHorde>();
     }
 
+    // Дальние зомби (дальше ZombieFollow.impostorDistance) — кубы: без аниматора и скиннинга,
+    // все рисуются парой инстансных вызовов на всю орду.
+    readonly List<Matrix4x4> impostors = new List<Matrix4x4>(1024);
+    Mesh cube;
+    Material impostorMat;
+
     void Update()
     {
         var all = ZombieFollow.All;
         for (int i = all.Count - 1; i >= 0; i--)
             if (i < all.Count) all[i].Tick(); // список может укоротиться, если кто-то умер по ходу
+    }
+
+    void LateUpdate()
+    {
+        var all = ZombieFollow.All;
+        impostors.Clear();
+        for (int i = 0; i < all.Count; i++)
+            if (all[i].UpdateImpostor()) impostors.Add(all[i].ImpostorMatrix);
+        if (impostors.Count == 0) return;
+
+        if (cube == null)
+        {
+            cube = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+            impostorMat = Resources.Load<Material>("ZombieImpostor");
+        }
+        if (impostorMat == null) return;
+        var rp = new RenderParams(impostorMat) { shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off, receiveShadows = true };
+        for (int start = 0; start < impostors.Count; start += 1023)
+            Graphics.RenderMeshInstanced(rp, cube, 0, impostors, Mathf.Min(1023, impostors.Count - start), start);
     }
 
     void FixedUpdate()
