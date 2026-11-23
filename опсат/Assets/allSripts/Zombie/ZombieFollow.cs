@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 // Оптимизированный ИИ орды без NavMesh.
 // Сохранены: прыжки, карабканье по стенам, движение по склонам,
@@ -7,9 +8,15 @@ using System.Collections;
 // Игрок всегда является целью: проверки линии видимости удалены.
 // Добавлено: режим кастера (stopDistance) и блокировка движения на время каста (castLocked),
 // которые использует ZombieSummoner.
+// Своих Update/FixedUpdate у зомби нет: это «пустышка» с настройками и состоянием,
+// всю орду одним проходом ведёт ZombieHorde (Tick / FixedTick). Настройки у каждого шаблона свои —
+// отсюда разнообразие зомби (скорость, урон, прыжки, кастеры), менеджер его не трогает.
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class ZombieFollow : MonoBehaviour
 {
+    // Все активные зомби — их перебирает ZombieHorde.
+    public static readonly List<ZombieFollow> All = new List<ZombieFollow>(1024);
+
     [Header("Ссылки")]
     public Transform player;
     public Health zhp;
@@ -184,6 +191,10 @@ public class ZombieFollow : MonoBehaviour
         if (player != null)
             environmentMask &= ~(1 << player.gameObject.layer);
 
+        // Соседи по орде — не препятствия: иначе в толпе зомби обходят, перепрыгивают и залезают
+        // друг на друга (гора зомби), а лучи/капсулы зря упираются в соседей.
+        environmentMask &= ~(1 << gameObject.layer);
+
         layerFilteringReady = zombieMask.value != 0;
         if (layerFilteringReady)
             environmentMask &= ~zombieMask;
@@ -234,7 +245,16 @@ public class ZombieFollow : MonoBehaviour
         if (optimizeModel) ZombieLod.Apply(gameObject);
     }
 
-    private void Update()
+    private void OnEnable()
+    {
+        All.Add(this);
+        ZombieHorde.Ensure();
+    }
+
+    private void OnDisable() => All.Remove(this);
+
+    // Вызывается из ZombieHorde раз в кадр (бывший Update).
+    internal void Tick()
     {
         if (player == null || isKnocked || isInKnockback)
             return;
@@ -263,7 +283,34 @@ public class ZombieFollow : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    // Шаг 1 физтика (ZombieHorde): нужен ли сейчас луч «есть ли земля». Лучи всей орды
+    // менеджер пускает одной пачкой в фоновых потоках и возвращает результат в ApplyGround.
+    internal bool PrepareGroundCheck(out RaycastCommand cmd)
+    {
+        cmd = default;
+        if (transform.position.y < fallY || isKnocked || isInKnockback)
+            return false;
+
+        // Проверка земли максимум 20 раз/сек на зомби вместо каждого физического тика.
+        lod = player != null && Flat(player.position - transform.position).sqrMagnitude > farDistance * farDistance
+            ? farCheckMultiplier : 1f;
+        // Сглаживание движения нужно только вблизи: у дальних его не видно, а на 1000 тел оно стоит пару мс.
+        var interp = lod > 1f ? RigidbodyInterpolation.None : RigidbodyInterpolation.Interpolate;
+        if (rb.interpolation != interp) rb.interpolation = interp;
+
+        if (climbing || Time.time < nextGroundCheckTime)
+            return false;
+        nextGroundCheckTime = Time.time + 0.05f * lod;
+        cmd = new RaycastCommand(transform.position + Vector3.up * groundRayStartHeight, Vector3.down,
+            new QueryParameters(environmentMask, false, QueryTriggerInteraction.Ignore, false), slopeCheckDistance);
+        return true;
+    }
+
+    // Промах луча даёт нулевую нормаль: normal.y = 0 < minNormalY (склон до 80°), то есть «не на земле».
+    internal void ApplyGround(RaycastHit hit) => SetGround(hit.normal.y >= minNormalY, hit.normal);
+
+    // Шаг 2 физтика (ZombieHorde): движение (бывший FixedUpdate).
+    internal void FixedTick()
     {
         if (transform.position.y < fallY)
         {
@@ -273,16 +320,6 @@ public class ZombieFollow : MonoBehaviour
 
         if (isKnocked || isInKnockback)
             return;
-
-        // Проверка земли максимум 20 раз/сек на зомби вместо каждого физического тика.
-        lod = player != null && Flat(player.position - transform.position).sqrMagnitude > farDistance * farDistance
-            ? farCheckMultiplier : 1f;
-
-        if (!climbing && Time.time >= nextGroundCheckTime)
-        {
-            nextGroundCheckTime = Time.time + 0.05f * lod;
-            UpdateGround();
-        }
 
         if (jumping && Time.time < jumpStartTime + JumpMinAirTime)
         {
@@ -736,19 +773,16 @@ public class ZombieFollow : MonoBehaviour
     private void UpdateGround()
     {
         Vector3 start = transform.position + Vector3.up * groundRayStartHeight;
-        if (Physics.Raycast(start, Vector3.down, out RaycastHit hit, slopeCheckDistance,
-                environmentMask, QueryTriggerInteraction.Ignore) && hit.normal.y >= minNormalY)
-        {
-            grounded = true;
-            groundNormal = hit.normal;
-            onValidSlope = hit.normal.y < 0.99999f;
-        }
-        else
-        {
-            grounded = false;
-            onValidSlope = false;
-            groundNormal = Vector3.up;
-        }
+        bool hitGround = Physics.Raycast(start, Vector3.down, out RaycastHit hit, slopeCheckDistance,
+            environmentMask, QueryTriggerInteraction.Ignore) && hit.normal.y >= minNormalY;
+        SetGround(hitGround, hit.normal);
+    }
+
+    private void SetGround(bool hitGround, Vector3 normal)
+    {
+        grounded = hitGround;
+        onValidSlope = hitGround && normal.y < 0.99999f;
+        groundNormal = hitGround ? normal : Vector3.up;
     }
 
     private bool IsPlayerInReach(float range)
