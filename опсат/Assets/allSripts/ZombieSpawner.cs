@@ -79,6 +79,9 @@ public class ZombieSpawner : MonoBehaviour
     private readonly List<GameObject> aliveZombies =
         new List<GameObject>(128);
 
+    // Точки спавна от генератора карты (MapGenerator). Нет точек — спавн по кольцу вокруг игрока, как раньше.
+    private ZombieSpawnPoint[] spawnPoints = System.Array.Empty<ZombieSpawnPoint>();
+
     private GameObject[] cachedPrefabs = System.Array.Empty<GameObject>();
     private float[] cumulativeWeights = System.Array.Empty<float>();
     private float totalWeight;
@@ -209,6 +212,8 @@ public class ZombieSpawner : MonoBehaviour
                 // ВАЖНО: создаём всю пачку подряд,
                 // без ожидания между отдельными зомби.
                 int spawnedInPack = 0;
+                // Карта может сгенерироваться позже спавнера или перегенерироваться — обновляем точки на каждую пачку.
+                spawnPoints = FindObjectsByType<ZombieSpawnPoint>(FindObjectsSortMode.None);
 
                 for (int i = 0; i < packSize; i++)
                 {
@@ -257,12 +262,17 @@ public class ZombieSpawner : MonoBehaviour
             Quaternion.identity
         );
 
+        // Шаблон зомби на сцене выключен, а Instantiate копирует это состояние — включаем клон.
+        zombie.SetActive(true);
         aliveZombies.Add(zombie);
         return true;
     }
 
     bool TryGetSpawnPosition(out Vector3 position)
     {
+        if (TryGetSpawnPoint(out position))
+            return true;
+
         Vector3 playerPosition = player.position;
 
         for (int i = 0; i < spawnPositionAttempts; i++)
@@ -295,6 +305,40 @@ public class ZombieSpawner : MonoBehaviour
 
         position = default;
         return false;
+    }
+
+    // Случайная точка спавна не ближе minSpawnRadius к игроку. Ближние точки и гнёзда выпадают чаще,
+    // чтобы зомби доходили до игрока, а не шли через всю карту.
+    bool TryGetSpawnPoint(out Vector3 position)
+    {
+        position = default;
+        ZombieSpawnPoint best = null;
+        float bestScore = -1f;
+        Vector3 playerPosition = player.position;
+
+        foreach (ZombieSpawnPoint point in spawnPoints)
+        {
+            if (point == null || !point.isActiveAndEnabled)
+                continue;
+
+            float distance = Vector3.Distance(point.transform.position, playerPosition);
+            if (distance < minSpawnRadius)
+                continue;
+
+            float score = Random.value * (point.isNest ? 2f : 1f) / (1f + distance / maxSpawnRadius);
+            if (score > bestScore)
+            {
+                bestScore = score;
+                best = point;
+            }
+        }
+
+        if (best == null)
+            return false;
+
+        Vector2 jitter = Random.insideUnitCircle * 1.5f; // пачка не появляется в одной точке
+        position = best.transform.position + new Vector3(jitter.x, 0.2f, jitter.y);
+        return true;
     }
 
     void RebuildPrefabCache()

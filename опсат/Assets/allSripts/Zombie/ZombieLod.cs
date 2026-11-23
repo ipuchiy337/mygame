@@ -22,19 +22,36 @@ public static class ZombieLod
     {
         if (root.GetComponentInChildren<LODGroup>(true) != null) return;
 
+        var anims = new List<Animator>();
         foreach (var anim in root.GetComponentsInChildren<Animator>())
         {
             if (!anim.isActiveAndEnabled) continue;
+            anims.Add(anim);
             anim.cullingMode = AnimatorCullingMode.CullUpdateTransforms;
             // В импорте модели включён Optimize Game Objects: без костей-трансформов меши не склеить.
             if (!anim.hasTransformHierarchy) AnimatorUtility.DeoptimizeTransformHierarchy(anim.gameObject);
         }
 
+        CombineAndLod(root);
+
+        // Аниматор запоминает кости и рендереры при инициализации. Без перепривязки он не видит новых костей
+        // и склеенного рендерера: считает зомби невидимым и не двигает кости — зомби стоит в T-позе.
+        foreach (var anim in anims) anim.Rebind();
+    }
+
+    static void CombineAndLod(GameObject root)
+    {
         var parts = new List<SkinnedMeshRenderer>();
         foreach (var s in root.GetComponentsInChildren<SkinnedMeshRenderer>())
             if (s.enabled && s.sharedMesh != null && s.bones.Length > 0 && s.bones.Length == s.sharedMesh.bindposeCount)
                 parts.Add(s);
         if (parts.Count == 0) return;
+        if (parts.Count > 1 && !parts.TrueForAll(p => p.sharedMesh.isReadable))
+        {
+            // Без Read/Write в импорте модели вершины в игре недоступны - склейка невозможна.
+            Debug.LogWarning($"ZombieLod: у модели {root.name} не включён Read/Write в импорте, меши не склеены.", root);
+            return;
+        }
 
         SkinnedMeshRenderer main = parts.Count == 1 ? parts[0] : Combine(parts);
         AddLodGroup(root, main);
