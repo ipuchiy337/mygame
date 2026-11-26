@@ -22,12 +22,23 @@ public class ZombieSpawner : MonoBehaviour
     [Header("Расстояние спавна от игрока")]
     [Min(1f)] public float minSpawnRadius = 8f;
     [Min(1f)] public float maxSpawnRadius = 18f;
+    [Tooltip("Сколько мест проверить для одного зомби, прежде чем сдаться")]
     [Min(1)] public int spawnPositionAttempts = 6;
 
     [Header("Поиск земли")]
     public LayerMask groundLayer = ~0;
     [Min(1f)] public float rayStartHeight = 10f;
     [Min(1f)] public float rayDistance = 30f;
+
+    [Header("Проверка места (не в объектах)")]
+    [Tooltip("С чем зомби не должен пересекаться при появлении: стены, камни, деревья, другие зомби")]
+    public LayerMask blockerLayers = ~0;
+    [Min(0.1f)] public float zombieRadius = 0.45f;
+    [Min(0.5f)] public float zombieHeight = 1.8f;
+    [Tooltip("Насколько точка может быть выше/ниже игрока — отсекает крыши и ямы")]
+    [Min(0.5f)] public float maxHeightDiff = 2.5f;
+    [Tooltip("Максимальный уклон земли в месте появления, градусы")]
+    [Range(0f, 89f)] public float maxGroundSlope = 40f;
 
     [Header("Настройки волн")]
     [Min(1)] public int baseZombiesPerWave = 12;
@@ -65,6 +76,9 @@ public class ZombieSpawner : MonoBehaviour
     [Min(0.05f)]
     public float checkLimitInterval = 0.25f;
 
+    [Tooltip("Сколько зомби создавать за кадр — пачка растягивается на несколько кадров без фриза")]
+    [Min(1)] public int spawnsPerFrame = 2;
+
     [Header("Текущее состояние")]
     public int currentWave;
     public int zombiesThisWave;
@@ -76,19 +90,24 @@ public class ZombieSpawner : MonoBehaviour
     public System.Action OnRestStart;
     public System.Action OnRestEnd;
 
+    // Золотой угол: каждый следующий зомби выходит с другой стороны, направления равномерно покрывают круг.
+    const float GoldenAngle = 2.39996323f;
+
     private readonly List<GameObject> aliveZombies =
         new List<GameObject>(128);
 
-    // Точки спавна от генератора карты (MapGenerator). Нет точек — спавн по кольцу вокруг игрока, как раньше.
+    // Точки спавна от генератора карты — запасной вариант, если на кольце вокруг игрока нет свободного места.
     private ZombieSpawnPoint[] spawnPoints = System.Array.Empty<ZombieSpawnPoint>();
 
     private GameObject[] cachedPrefabs = System.Array.Empty<GameObject>();
     private float[] cumulativeWeights = System.Array.Empty<float>();
     private float totalWeight;
+    private float nextAngle;
 
     void Start()
     {
         RebuildPrefabCache();
+        nextAngle = Random.value * Mathf.PI * 2f;
         StartCoroutine(WaveLoop());
     }
 
@@ -115,6 +134,7 @@ public class ZombieSpawner : MonoBehaviour
 
         maxAliveZombies = Mathf.Max(1, maxAliveZombies);
         checkLimitInterval = Mathf.Max(0.05f, checkLimitInterval);
+        spawnsPerFrame = Mathf.Max(1, spawnsPerFrame);
 
         hordeZombieMultiplier = Mathf.Max(1f, hordeZombieMultiplier);
         hordeSpawnSpeedMultiplier =
@@ -161,6 +181,9 @@ public class ZombieSpawner : MonoBehaviour
 
             zombiesSpawned = 0;
 
+            // Карта могла сгенерироваться позже спавнера или перегенерироваться — обновляем точки раз в волну.
+            RefreshSpawnPoints();
+
             OnWaveStart?.Invoke(currentWave, isHordeWave);
 
             float waveEndTime = Time.time + waveDuration;
@@ -169,16 +192,13 @@ public class ZombieSpawner : MonoBehaviour
             while (Time.time < waveEndTime &&
                    zombiesSpawned < zombiesThisWave)
             {
-                CleanupDestroyedZombies();
-
                 if (player == null)
                 {
                     yield return new WaitForSeconds(checkLimitInterval);
                     continue;
                 }
 
-                int aliveCount = AliveCount();
-                int freeSlots = maxAliveZombies - aliveCount;
+                int freeSlots = maxAliveZombies - AliveCount();
 
                 // Ожидаем, пока освободится место
                 if (freeSlots <= 0)
@@ -191,10 +211,7 @@ public class ZombieSpawner : MonoBehaviour
                 int packBonus =
                     (currentWave - 1) * packSizeAddedEveryWave;
 
-                int packMin = minPackSize + packBonus;
-                int packMax = maxPackSize + packBonus;
-
-                int packSize = Random.Range(packMin, packMax + 1);
+                int packSize = Random.Range(minPackSize + packBonus, maxPackSize + packBonus + 1);
 
                 // Орда увеличивает размер пачки
                 if (isHordeWave)
@@ -203,29 +220,23 @@ public class ZombieSpawner : MonoBehaviour
                         packSize * hordeMultiplier);
                 }
 
-                // Не превышаем оставшееся количество волны
-                int remainingWave = zombiesThisWave - zombiesSpawned;
-
-                packSize = Mathf.Min(packSize, remainingWave);
+                // Не превышаем оставшееся количество волны и лимит живых
+                packSize = Mathf.Min(packSize, zombiesThisWave - zombiesSpawned);
                 packSize = Mathf.Min(packSize, freeSlots);
 
-                // ВАЖНО: создаём всю пачку подряд,
-                // без ожидания между отдельными зомби.
-                int spawnedInPack = 0;
-                // Карта может сгенерироваться позже спавнера или перегенерироваться — обновляем точки на каждую пачку.
-                spawnPoints = FindObjectsByType<ZombieSpawnPoint>(FindObjectsSortMode.None);
-
+                // Пачка выходит одновременно, но с разных сторон; Instantiate размазан по кадрам.
                 for (int i = 0; i < packSize; i++)
                 {
+                    if (player == null)
+                        break;
+
                     if (SpawnZombie())
-                    {
-                        spawnedInPack++;
-                    }
+                        zombiesSpawned++;
+
+                    if ((i + 1) % spawnsPerFrame == 0)
+                        yield return null;
                 }
 
-                zombiesSpawned += spawnedInPack;
-
-                // Пауза только ПОСЛЕ всей пачки
                 float waitTime = Random.Range(
                     minSecondsBetweenPacks,
                     maxSecondsBetweenPacks
@@ -245,10 +256,14 @@ public class ZombieSpawner : MonoBehaviour
 
     bool SpawnZombie()
     {
-        if (player == null || cachedPrefabs.Length == 0)
+        if (cachedPrefabs.Length == 0)
             return false;
 
-        if (!TryGetSpawnPosition(out Vector3 spawnPosition))
+        nextAngle += GoldenAngle + Random.Range(-0.35f, 0.35f);
+
+        Vector3 center = player.position;
+
+        if (!TryGetSpawnPosition(center, nextAngle, out Vector3 spawnPosition))
             return false;
 
         GameObject prefab = GetRandomPrefab();
@@ -256,11 +271,13 @@ public class ZombieSpawner : MonoBehaviour
         if (prefab == null)
             return false;
 
-        GameObject zombie = Instantiate(
-            prefab,
-            spawnPosition,
-            Quaternion.identity
-        );
+        Vector3 toPlayer = center - spawnPosition;
+        toPlayer.y = 0f;
+        Quaternion rotation = toPlayer.sqrMagnitude > 0.01f
+            ? Quaternion.LookRotation(toPlayer)
+            : Quaternion.identity;
+
+        GameObject zombie = Instantiate(prefab, spawnPosition, rotation);
 
         // Шаблон зомби на сцене выключен, а Instantiate копирует это состояние — включаем клон.
         zombie.SetActive(true);
@@ -268,67 +285,90 @@ public class ZombieSpawner : MonoBehaviour
         return true;
     }
 
-    bool TryGetSpawnPosition(out Vector3 position)
+    // Место на кольце minSpawnRadius..maxSpawnRadius вокруг center в направлении angle (радианы).
+    // Не нашли свободное — берём точку генератора карты, ближайшую к этому направлению.
+    public bool TryGetSpawnPosition(Vector3 center, float angle, out Vector3 position)
     {
-        if (TryGetSpawnPoint(out position))
-            return true;
-
-        Vector3 playerPosition = player.position;
-
         for (int i = 0; i < spawnPositionAttempts; i++)
         {
-            float angle = Random.value * Mathf.PI * 2f;
+            float a = angle + (i == 0 ? 0f : Random.Range(-0.6f, 0.6f));
+            float radius = Random.Range(minSpawnRadius, maxSpawnRadius);
 
-            float radius = Random.Range(
-                minSpawnRadius,
-                maxSpawnRadius
+            Vector3 candidate = center + new Vector3(
+                Mathf.Cos(a) * radius,
+                0f,
+                Mathf.Sin(a) * radius
             );
 
-            Vector3 origin = playerPosition + new Vector3(
-                Mathf.Cos(angle) * radius,
-                rayStartHeight,
-                Mathf.Sin(angle) * radius
-            );
-
-            if (Physics.Raycast(
-                origin,
-                Vector3.down,
-                out RaycastHit hit,
-                rayDistance,
-                groundLayer,
-                QueryTriggerInteraction.Ignore))
-            {
-                position = hit.point;
+            if (IsFreeSpot(candidate, center.y, out position))
                 return true;
-            }
         }
 
-        position = default;
-        return false;
+        return TryGetSpawnPoint(center, angle, out position);
     }
 
-    // Случайная точка спавна не ближе minSpawnRadius к игроку. Ближние точки и гнёзда выпадают чаще,
-    // чтобы зомби доходили до игрока, а не шли через всю карту.
-    bool TryGetSpawnPoint(out Vector3 position)
+    // Земля под точкой: пологая, на уровне игрока (не крыша, не яма), и капсула зомби ни во что не упирается.
+    bool IsFreeSpot(Vector3 point, float referenceY, out Vector3 groundPoint)
+    {
+        groundPoint = default;
+
+        Vector3 origin = new Vector3(point.x, referenceY + rayStartHeight, point.z);
+
+        if (!Physics.Raycast(origin, Vector3.down, out RaycastHit hit,
+                rayDistance, groundLayer, QueryTriggerInteraction.Ignore))
+            return false;
+
+        if (hit.normal.y < Mathf.Cos(maxGroundSlope * Mathf.Deg2Rad))
+            return false;
+
+        if (Mathf.Abs(hit.point.y - referenceY) > maxHeightDiff)
+            return false;
+
+        // Капсула приподнята над землёй, чтобы не задевать сам пол (вся карта на слое Ground вместе с домами).
+        float bottomY = zombieRadius + 0.25f;
+        float topY = Mathf.Max(bottomY, zombieHeight - zombieRadius);
+
+        if (Physics.CheckCapsule(
+                hit.point + Vector3.up * bottomY,
+                hit.point + Vector3.up * topY,
+                zombieRadius, blockerLayers, QueryTriggerInteraction.Ignore))
+            return false;
+
+        groundPoint = hit.point;
+        return true;
+    }
+
+    bool TryGetSpawnPoint(Vector3 center, float angle, out Vector3 position)
     {
         position = default;
+
+        Vector3 wanted = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
         ZombieSpawnPoint best = null;
-        float bestScore = -1f;
-        Vector3 playerPosition = player.position;
+        float bestDot = -2f;
+        float maxDistance = maxSpawnRadius * 2f; // дальние точки не берём — иначе зомби идут через всю карту
 
         foreach (ZombieSpawnPoint point in spawnPoints)
         {
-            if (point == null || !point.isActiveAndEnabled)
-                continue;
-
-            float distance = Vector3.Distance(point.transform.position, playerPosition);
-            if (distance < minSpawnRadius)
-                continue;
-
-            float score = Random.value * (point.isNest ? 2f : 1f) / (1f + distance / maxSpawnRadius);
-            if (score > bestScore)
+            if (point == null)
             {
-                bestScore = score;
+                RefreshSpawnPoints(); // карту перегенерировали — со следующего зомби будут новые точки
+                return false;
+            }
+
+            if (!point.isActiveAndEnabled)
+                continue;
+
+            Vector3 offset = point.transform.position - center;
+            offset.y = 0f;
+            float distance = offset.magnitude;
+
+            if (distance < minSpawnRadius || distance > maxDistance)
+                continue;
+
+            float dot = Vector3.Dot(offset / distance, wanted);
+            if (dot > bestDot)
+            {
+                bestDot = dot;
                 best = point;
             }
         }
@@ -336,9 +376,14 @@ public class ZombieSpawner : MonoBehaviour
         if (best == null)
             return false;
 
-        Vector2 jitter = Random.insideUnitCircle * 1.5f; // пачка не появляется в одной точке
-        position = best.transform.position + new Vector3(jitter.x, 0.2f, jitter.y);
-        return true;
+        Vector2 jitter = Random.insideUnitCircle * 1.5f;
+        Vector3 p = best.transform.position + new Vector3(jitter.x, 0f, jitter.y);
+        return IsFreeSpot(p, center.y, out position);
+    }
+
+    void RefreshSpawnPoints()
+    {
+        spawnPoints = FindObjectsByType<ZombieSpawnPoint>();
     }
 
     void RebuildPrefabCache()
@@ -393,15 +438,8 @@ public class ZombieSpawner : MonoBehaviour
 
     int AliveCount()
     {
-        int count = 0;
-
-        for (int i = 0; i < aliveZombies.Count; i++)
-        {
-            if (aliveZombies[i] != null)
-                count++;
-        }
-
-        return count;
+        CleanupDestroyedZombies();
+        return aliveZombies.Count;
     }
 
     public int GetWave() => currentWave;
